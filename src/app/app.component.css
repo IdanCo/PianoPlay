@@ -1,5 +1,6 @@
 #container {
-  width: 1128px;
+  width: 100%;
+  height: 100%;
   margin: 20px auto 0px;
 }
 
@@ -19,20 +20,26 @@
 
 #keyboard-component {
   clear: both;
-  width: 1128px;
-  margin: 0;
+  width: 560px;
+  margin: 0 auto;
 }
 
 #appDetails {
-  text-align: right;
-  color: rgba(0,0,0,0.8);
+  text-align: left;
+  direction: rtl;
+  color: white;
   font-size: 12px;
-  margin: 0;
-  padding: 10px 5px 0 0 ;
+  padding-top: 30px;
+}
+
+
+#appDetails .inner {
+  background-color: rgba(0,0,0,0.3);
+  padding: 10px 5px;
 }
 
 #appDetails a {
-  color: rgba(0,0,0,0.6);
+  color: white;
 }
 
 #appDetails a:hover {
@@ -48,7 +55,14 @@
 }
 
 .bingo {
-  font-size: 50px;
+  font-size: 10vw;
+  height: 100%;
   background-color: blue;
   color: yellow;
+  direction: rtl;
+
+  display: flex;
+  justify-content: center!important;
+  align-items: center!important;
+
 }

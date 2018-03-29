@@ -3,7 +3,16 @@
     <keyboard (keyPlayed)="handleKeyPlayed($event)"></keyboard>
   </div>
   <div *ngIf="bingo" class="bingo">
-    אפיקומן!!!
+    <span>אפיקומן!!!</span>
   </div>
-  <p id="appDetails">Built by <a href="http://deanmalone.net/" target="_blank">Dean Malone</a> using Angular 2 - Source available on <a href="https://github.com/deanmalone/PianoPlay/" target="_blank">GitHub</a></p>
+  <p id="appDetails">
+    <span class="inner">
+      <span>נבנה בפרך על ידי </span>
+      <a href="http://idancohen.com">עידן כהן</a>
+      <span> בהשראת </span>
+      <a href="http://deanmalone.net/" target="_blank">Dean Malone</a>
+      <span> קוד מקור </span>
+      <a href="https://github.com/IdanCo/PianoPlay/" target="_blank">GitHub</a>
+    </span>
+  </p>
 </div>

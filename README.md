@@ -1,36 +1,32 @@
-# Piano Play
+# חידה מוזיקלית לפסח
 
-**Piano Play** is an Angular 2 application to help those learning the piano to read music notation.
+Based on the wonderful [Piano Play.](http://deanmalone.net/PianoPlay)
 
-You can check out the app here: [Piano Play.](http://deanmalone.net/PianoPlay)
+## הרעיון
 
-For more details you can also read my [blog post.](http://deanmalone.net/post/piano-play/)
+כדי להוסיף קצת עניין לחיפוש אחר האפיקומן, בניתי את החידה המוזיקלית הזו שמתאימה לילדים בכל גיל ומאפשרת המון מקום ליצירתיות והתאמה אישית.
 
+החידה מתחילה כך -
 
-![PianoPlay](http://deanmalone.net/img/piano-play.png)
+![PianoPlay](screen1.png)
 
-### Credits:
-* [Joseph Woodward](http://josephwoodward.co.uk/) for his cool [Piano Note Trainer](https://github.com/JosephWoodward/Angular2PianoNoteTrainingGame), including the piano wav files.
-* [Taufik Nurrohman](http://cssdeck.com/user/tovic) for the awesome looking [CSS Piano](http://cssdeck.com/labs/pure-css3-piano)
-* The team at [RISM-Switzerland](http://rism-ch.org/) for their amazing open-source SVG-based music notation library [Verovio JavaScript toolkit](http://www.verovio.org/javascript.xhtml).
-* Kim Biesbjerg for his [SafePipe](https://forum.ionicframework.com/t/inserting-html-via-angular-2-use-of-domsanitizationservice-bypasssecuritytrusthtml/62562/5
-) code.
+לאחר שמצליחים לנגן את השיר ״שמחה רבה״ מופיע המסך הבא -
 
-## Angular CLI
-Piano Play was generated with [angular-cli](https://github.com/angular/angular-cli).
+![PianoPlay](screen2.png)
 
-### Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## הפיתרון 
 
-### Build
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+רצף התווים הנכון שמוביל לפתרון הוא (משמאל לימין) -
 
-### Running unit tests
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1 4 4 5 3 4 3 2 1
 
-### Running end-to-end tests
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
+1 2 2 3 1 4 6 5
 
-### Deploying to Github Pages
-Run `npm run deploy` to deploy to GitHub Pages.
+## החידה 
+
+זה המקום שלכם להיות יצירתיים. אתם יכולים לגלות את הפיתרון לילדים בשלל דרכים ואופנים לפי רמתם. הנה כמה רעיונות -
+
+1. ניתן להחביא ברחבי הבית פתקים ועליהם רצף התווים הנכון. רק תוודאו שאם אתם מחביאים יותר מפתק אחד, חשוב למספר אותם כדי שהסדר ישמר
+2. רצץ התווים יכול להיות מוסתר בכתב סתרים, למשל גימטריה או ספרות עבריות עתיקות
+3. ניתן לתת לכל אחד מבאי הסדר חלק קטן מרצף התווים, ועל הילדים מוטל לשכנע את האורחים לתת להם את הרצף. על הילדים יצטרכו גם להבין באיזה סדר יש לנגן את התווים, והוא יכול להקבע לפי גיל האורחים, שמם בסדר אלפביתי, מקום הישיבה שלהם, וכו׳
+4. ניתן לכתוב רצף של חידות חשבון שפתרונן הוא רצף התווים

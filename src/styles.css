@@ -1,9 +1,10 @@
+html, body {
+  height: 100%;
+}
+
 html {
   box-sizing: border-box;
-  background: -webkit-linear-gradient(#F8E5CD  , #AB8C65    );
-  background: -o-linear-gradient(#F8E5CD  , #AB8C65     );
-  background: linear-gradient(#F8E5CD  , #AB8C65     );
-  background-attachment:fixed;
+  background-image: url(./assets/bg.jpg);
 }
 
 body {
