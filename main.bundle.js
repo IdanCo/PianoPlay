@@ -1,14 +1,244 @@
-webpackJsonp([0,4],{
+webpackJsonp(["main"],{
 
-/***/ 139:
-/***/ function(module, exports, __webpack_require__) {
+/***/ "./src/$$_gendir lazy recursive":
+/***/ (function(module, exports) {
+
+function webpackEmptyAsyncContext(req) {
+	// Here Promise.resolve().then() is used instead of new Promise() to prevent
+	// uncatched exception popping up in devtools
+	return Promise.resolve().then(function() {
+		throw new Error("Cannot find module '" + req + "'.");
+	});
+}
+webpackEmptyAsyncContext.keys = function() { return []; };
+webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
+module.exports = webpackEmptyAsyncContext;
+webpackEmptyAsyncContext.id = "./src/$$_gendir lazy recursive";
+
+/***/ }),
+
+/***/ "./src/app/app.component.css":
+/***/ (function(module, exports) {
+
+module.exports = "#container {\n  width: 1128px;\n  margin: 20px auto 0px;\n}\n\n#side-content {\n  float: left;\n  width: 328px;\n}\n\n#notation-component {\n  float: right;\n  width: 800px;\n  height: 392px;\n  background:#fff;\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n  margin: 0 0 20px 0;\n}\n\n#keyboard-component {\n  clear: both;\n  width: 1128px;\n  margin: 0;\n}\n\n#appDetails {\n  text-align: right;\n  color: rgba(0,0,0,0.8);\n  font-size: 12px;\n  margin: 0;\n  padding: 10px 5px 0 0 ;\n}\n\n#appDetails a {\n  color: rgba(0,0,0,0.6);\n}\n\n#appDetails a:hover {\n  text-decoration: none;\n}\n\n.panel {\n  height: 186px;\n  padding: 0px;\n  margin: 0 20px 20px 0;\n  background:#FFFFF2;\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n}\n\n.bingo {\n  font-size: 50px;\n  background-color: blue;\n  color: yellow;\n}\n"
+
+/***/ }),
+
+/***/ "./src/app/app.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"container\">\n  <div *ngIf=\"!bingo\" id=\"keyboard-component\">\n    <keyboard (keyPlayed)=\"handleKeyPlayed($event)\"></keyboard>\n  </div>\n  <div *ngIf=\"bingo\" class=\"bingo\">\n    אפיקומן!!!\n  </div>\n  <p id=\"appDetails\">Built by <a href=\"http://deanmalone.net/\" target=\"_blank\">Dean Malone</a> using Angular 2 - Source available on <a href=\"https://github.com/deanmalone/PianoPlay/\" target=\"_blank\">GitHub</a></p>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/app.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__piano_note__ = __webpack_require__(458);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PianoService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_piano_service__ = __webpack_require__("./src/app/core/piano.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_sound_service__ = __webpack_require__("./src/app/core/sound.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var AppComponent = (function () {
+    function AppComponent(pianoService, soundService) {
+        var _this = this;
+        this.pianoService = pianoService;
+        this.soundService = soundService;
+        this.song = ['c', 'f', 'f', 'g', 'e', 'f', 'e', 'd', 'c', 'c', 'd', 'd', 'e', 'c', 'f', 'a', 'g'];
+        // song = ['c', 'f', 'f'];
+        this.tune = [];
+        this.bingo = false;
+        this.subscription = pianoService.notePlayed$.subscribe(function (note) { return _this.handleNotePlayed(note); });
+    }
+    AppComponent.prototype.ngOnInit = function () {
+        this.soundService.initialize();
+    };
+    AppComponent.prototype.handleKeyPlayed = function (keyId) {
+        this.pianoService.playNoteByKeyId(keyId);
+    };
+    AppComponent.prototype.handleNotePlayed = function (note) {
+        var _this = this;
+        this.soundService.playNote(note.keyId);
+        console.info('note name', note.name);
+        console.info('tune:', this.tune);
+        if (this.song[this.tune.length] === note.name) {
+            this.tune.push(note.name);
+        }
+        else {
+            this.tune = [];
+        }
+        if (this.song.length === this.tune.length && this.song.every(function (v, i) { return v === _this.tune[i]; })) {
+            console.info('bingo!!!!');
+            this.bingo = true;
+        }
+    };
+    AppComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* Component */])({
+            selector: 'app-root',
+            template: __webpack_require__("./src/app/app.component.html"),
+            styles: [__webpack_require__("./src/app/app.component.css")]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__core_piano_service__["a" /* PianoService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__core_piano_service__["a" /* PianoService */]) === 'function' && _a) || Object, (typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__core_sound_service__["a" /* SoundService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__core_sound_service__["a" /* SoundService */]) === 'function' && _b) || Object])
+    ], AppComponent);
+    return AppComponent;
+    var _a, _b;
+}());
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/app.component.js.map
+
+/***/ }),
+
+/***/ "./src/app/app.module.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__("./node_modules/@angular/platform-browser/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__("./node_modules/@angular/http/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common__ = __webpack_require__("./node_modules/@angular/common/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__("./src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__keyboard_keyboard_component__ = __webpack_require__("./src/app/keyboard/keyboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__notation_notation_component__ = __webpack_require__("./src/app/notation/notation.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__play_control_play_control_component__ = __webpack_require__("./src/app/play-control/play-control.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__note_info_note_info_component__ = __webpack_require__("./src/app/note-info/note-info.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__quiz_info_quiz_info_component__ = __webpack_require__("./src/app/quiz-info/quiz-info.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__core_piano_service__ = __webpack_require__("./src/app/core/piano.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__core_quiz_service__ = __webpack_require__("./src/app/core/quiz.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__core_sound_service__ = __webpack_require__("./src/app/core/sound.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__notation_notation_service__ = __webpack_require__("./src/app/notation/notation.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__shared_safe_pipe__ = __webpack_require__("./src/app/shared/safe.pipe.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var AppModule = (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["P" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_6__keyboard_keyboard_component__["a" /* KeyboardComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__notation_notation_component__["a" /* NotationComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__play_control_play_control_component__["a" /* PlayControlComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__note_info_note_info_component__["a" /* NoteInfoComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__quiz_info_quiz_info_component__["a" /* QuizInfoComponent */],
+                __WEBPACK_IMPORTED_MODULE_15__shared_safe_pipe__["a" /* SafePipe */]
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
+                __WEBPACK_IMPORTED_MODULE_4__angular_common__["a" /* CommonModule */]
+            ],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_11__core_piano_service__["a" /* PianoService */],
+                __WEBPACK_IMPORTED_MODULE_13__core_sound_service__["a" /* SoundService */],
+                __WEBPACK_IMPORTED_MODULE_14__notation_notation_service__["a" /* NotationService */],
+                __WEBPACK_IMPORTED_MODULE_12__core_quiz_service__["a" /* QuizService */]
+            ],
+            exports: [],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], AppModule);
+    return AppModule;
+}());
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/app.module.js.map
+
+/***/ }),
+
+/***/ "./src/app/core/piano-mode.enum.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PianoMode; });
+var PianoMode;
+(function (PianoMode) {
+    PianoMode[PianoMode["Play"] = 0] = "Play";
+    PianoMode[PianoMode["Quiz"] = 1] = "Quiz";
+})(PianoMode || (PianoMode = {}));
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/piano-mode.enum.js.map
+
+/***/ }),
+
+/***/ "./src/app/core/piano-note.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PianoNote; });
+var PianoNote = (function () {
+    function PianoNote(keyId, noteId) {
+        this.keyId = keyId;
+        this.noteId = noteId;
+        if (keyId < 16 || keyId > 64) {
+            throw new RangeError("Invalid keyId. The valid range of keyId is 16 to 64.");
+        }
+        if (noteId.length < 2 || noteId.length > 3) {
+            throw new RangeError("noteId is invalid");
+        }
+        this.name = noteId[0].toLowerCase();
+        this.octave = parseInt(noteId[1]);
+        var accidentalSymbol = "";
+        if (noteId.length == 3) {
+            this.accidental = noteId[2];
+            if (this.accidental == "s") {
+                accidentalSymbol = '\u266F';
+            }
+            else if (this.accidental == "f") {
+                accidentalSymbol = '\u266D';
+            }
+        }
+        this.fullname = this.name.toUpperCase() + accidentalSymbol;
+    }
+    return PianoNote;
+}());
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/piano-note.js.map
+
+/***/ }),
+
+/***/ "./src/app/core/piano.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PianoService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__("./node_modules/rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__piano_note__ = __webpack_require__("./src/app/core/piano-note.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -27,7 +257,7 @@ var PianoService = (function () {
         this.pianoKeyMap = {};
         this.pianoNoteMap = {};
         // Observable sources
-        this.pianoNotePlayedSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
+        this.pianoNotePlayedSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
         // Observable streams
         this.notePlayed$ = this.pianoNotePlayedSource.asObservable();
         this.pianoKeyMap = {
@@ -146,34 +376,34 @@ var PianoService = (function () {
         return naturalNotes;
     };
     PianoService = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* Injectable */])(), 
         __metadata('design:paramtypes', [])
     ], PianoService);
     return PianoService;
 }());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/piano.service.js.map
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/piano.service.js.map
 
-/***/ },
+/***/ }),
 
-/***/ 201:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PianoMode; });
-var PianoMode;
-(function (PianoMode) {
-    PianoMode[PianoMode["Play"] = 0] = "Play";
-    PianoMode[PianoMode["Quiz"] = 1] = "Quiz";
-})(PianoMode || (PianoMode = {}));
-//# sourceMappingURL=C:/Projects/PianoPlay/src/piano-mode.enum.js.map
-
-/***/ },
-
-/***/ 202:
-/***/ function(module, exports, __webpack_require__) {
+/***/ "./src/app/core/quiz-result.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return QuizStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuizResult; });
+var QuizResult = (function () {
+    function QuizResult() {
+    }
+    return QuizResult;
+}());
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/quiz-result.js.map
+
+/***/ }),
+
+/***/ "./src/app/core/quiz-status.enum.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuizStatus; });
 var QuizStatus;
 (function (QuizStatus) {
     QuizStatus[QuizStatus["Starting"] = 0] = "Starting";
@@ -181,16 +411,105 @@ var QuizStatus;
     QuizStatus[QuizStatus["Finished"] = 2] = "Finished";
     QuizStatus[QuizStatus["None"] = 3] = "None";
 })(QuizStatus || (QuizStatus = {}));
-//# sourceMappingURL=C:/Projects/PianoPlay/src/quiz-status.enum.js.map
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/quiz-status.enum.js.map
 
-/***/ },
+/***/ }),
 
-/***/ 301:
-/***/ function(module, exports, __webpack_require__) {
+/***/ "./src/app/core/quiz.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return SoundService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuizService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__("./node_modules/rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__quiz_result__ = __webpack_require__("./src/app/core/quiz-result.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quiz_status_enum__ = __webpack_require__("./src/app/core/quiz-status.enum.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var QuizService = (function () {
+    function QuizService() {
+        this.quizLength = 16;
+        this.quizNotes = [];
+        this.quizResults = [];
+        this.quizIndex = 0;
+        this.inProgress = false;
+        this.correct = 0;
+        this.incorrect = 0;
+        this.status = __WEBPACK_IMPORTED_MODULE_3__quiz_status_enum__["a" /* QuizStatus */].None;
+        // Observable sources
+        this.quizResultSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
+        // Observable streams
+        this.quizResult$ = this.quizResultSource.asObservable();
+    }
+    QuizService.prototype.startQuiz = function (quizLength, availableNotes) {
+        this.quizLength = quizLength;
+        // clear quiz data
+        this.quizNotes.length = 0;
+        this.quizResults.length = 0;
+        this.inProgress = true;
+        this.quizIndex = 0;
+        this.correct = 0;
+        this.incorrect = 0;
+        // generate random notes from the availableNotes array
+        for (var i = 0; i < this.quizLength; i++) {
+            this.quizNotes.push(availableNotes[Math.floor(Math.random() * availableNotes.length)]);
+        }
+    };
+    QuizService.prototype.getCurrentNoteId = function () {
+        return this.quizNotes[this.quizIndex];
+    };
+    QuizService.prototype.next = function () {
+        // check if quiz has finished
+        if (this.quizIndex == (this.quizLength - 1)) {
+            this.inProgress = false;
+            return false;
+        }
+        // otherwise move on to next quiz note.
+        this.quizIndex++;
+        return true;
+    };
+    QuizService.prototype.recordResult = function (selectedKeyId, actualNote) {
+        // update score
+        if (selectedKeyId == actualNote.keyId) {
+            this.correct++;
+        }
+        else {
+            this.incorrect++;
+        }
+        var result = new __WEBPACK_IMPORTED_MODULE_2__quiz_result__["a" /* QuizResult */]();
+        result.selectedKeyId = selectedKeyId;
+        result.actualNote = actualNote;
+        result.quizNumber = this.quizIndex + 1;
+        this.quizResults.push(result);
+        this.quizResultSource.next(result);
+    };
+    QuizService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* Injectable */])(), 
+        __metadata('design:paramtypes', [])
+    ], QuizService);
+    return QuizService;
+}());
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/quiz.service.js.map
+
+/***/ }),
+
+/***/ "./src/app/core/sound.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SoundService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -267,25 +586,128 @@ var SoundService = (function () {
         request.send();
     };
     SoundService = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* Injectable */])(), 
         __metadata('design:paramtypes', [])
     ], SoundService);
     return SoundService;
 }());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/sound.service.js.map
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/sound.service.js.map
 
-/***/ },
+/***/ }),
 
-/***/ 302:
-/***/ function(module, exports, __webpack_require__) {
+/***/ "./src/app/keyboard/keyboard.component.css":
+/***/ (function(module, exports) {
+
+module.exports = "/**\n * Pure CSS3 Piano by Taufik Nurrohman\n * On: 1 December 2011\n * URL: http://hompimpaalaihumgambreng.blogspot.com/\n * Note: This experiment is under the God Almighty License.\n * Please do not replace or remove the attribution above if you want to save/modify this project legally.\n * Good luck!\n */\n\n#p-wrapper > * {\n    margin:0px;\n    padding:0px;\n    list-style:none;\n}\n\n#p-wrapper {\n    margin-top: 20px;\n    background:#000;\n    background:linear-gradient(-60deg,#000,#333,#000,#666,#333 70%);\n    width: 544px;\n    position:relative;\n    left: 0;\n    padding-left: 10px;\n    padding-top: 5px;\n    -webkit-box-shadow:0 2px 0px #666,0 3px 0px #555,0 4px 0px #444,0 6px 6px #000,inset 0 -1px 1px rgba(255,255,255,0.5),inset 0 -4px 5px #000;\n    box-shadow:0 2px 0px #666,0 3px 0px #555,0 4px 0px #444,0 6px 6px #000,inset 0 -1px 1px rgba(255,255,255,0.5),inset 0 -4px 5px #000;\n    border:2px solid #333;\n    border-radius:0 0 5px 5px;\n    -webkit-animation:taufik 2s;\n    animation:taufik 2s;\n}\n\n/* Tuts */\n\nul#piano {\n  display:block;\n  width:100%;\n  height:480px;\n  border-top:2px solid #222;\n}\n\nul#piano li {\n  list-style:none;\n  float:left;\n  display:inline;\n  background:#aaa;\n  width:76px;\n  position:relative;\n  cursor: pointer;\n}\n\nul#piano li a,ul#piano li div.anchor {\n  display:block;\n  height:440px;\n  background:#fff;\n  background:linear-gradient(-30deg,#f5f5f5,#fff);\n  border:1px solid #ccc;\n  -webkit-box-shadow:inset 0 1px 0px #fff,inset 0 -1px 0px #fff,inset 1px 0px 0px #fff,inset -1px 0px 0px #fff,0 4px 3px rgba(0,0,0,0.7);\n  box-shadow:inset 0 1px 0px #fff,inset 0 -1px 0px #fff,inset 1px 0px 0px #fff,inset -1px 0px 0px #fff,0 4px 3px rgba(0,0,0,0.7);\n  border-radius:0 0 3px 3px;\n}\n\nul#piano li.middlec a,ul#piano li.middlec div.anchor {\n    background: #dddddd;\n}\n\nul#piano li a:active,ul#piano li div.anchor:active {\n  -webkit-box-shadow:0 2px 2px rgba(0,0,0,0.4);\n  box-shadow:0 2px 2px rgba(0,0,0,0.4);\n  position:relative;\n  top:2px;\n  height:432px;\n}\n\nul#piano li a:active:before,ul#piano li div.anchor:active:before {\n  content:\"\";\n  width:0px;\n  height:0px;\n  border-width:216px 5px 0px;\n  border-style:solid;\n  border-color:transparent transparent transparent rgba(0,0,0,0.1);\n  position:absolute;\n  left:0px;\n  top:0px;\n}\n\nul#piano li a:active:after,ul#piano li div.anchor:active:after {\n  content:\"\";\n  width:0px;\n  height:0px;\n  border-width:432px 5px 0px;\n  border-style:solid;\n  border-color:transparent rgba(0,0,0,0.1) transparent transparent;\n  position:absolute;\n  right:0px;\n  top:0px;\n}\n\n/* Black Tuts */\n\nul#piano li span {\n  position:absolute;\n  top:0px;\n  left:-24px;\n  width:40px;\n  height:240px;\n  background:#333;\n  background:linear-gradient(-20deg,#333,#000,#333);\n  z-index:10;\n  border-width:1px 2px 7px;\n  border-style:solid;\n  border-color:#666 #222 #111 #555;\n  -webkit-box-shadow:inset 0px -1px 2px rgba(255,255,255,0.4),0 2px 3px rgba(0,0,0,0.4);\n  box-shadow:inset 0px -1px 2px rgba(255,255,255,0.4),0 2px 3px rgba(0,0,0,0.4);\n  border-radius:0 0 2px 2px;\n}\n\nul#piano li span:active {\n  border-bottom-width:2px;\n  height:246px;\n  -webkit-box-shadow:inset 0px -1px 1px rgba(255,255,255,0.4),0 1px 0px rgba(0,0,0,0.8),0 2px 2px rgba(0,0,0,0.4),0 -1px 0px #000;\n  box-shadow:inset 0px -1px 1px rgba(255,255,255,0.4),0 1px 0px rgba(0,0,0,0.8),0 2px 2px rgba(0,0,0,0.4),0 -1px 0px #000;\n}\n\n.white-key {\n  display: -webkit-box !important;\n  display: -ms-flexbox !important;\n  display: flex !important;\n  -webkit-box-align: end;\n      -ms-flex-align: end;\n          align-items: flex-end;\n}\n\n.white-key .key-name {\n  width: 100%;\n  text-align: center;\n  font-size: 32px;\n}\n\n/* Animation */\n\n@-webkit-keyframes taufik {\n  from {opacity:0;}\n  to {opacity:1;}\n}\n\n@keyframes taufik {\n  from {opacity:0;}\n  to {opacity:1;}\n}\n"
+
+/***/ }),
+
+/***/ "./src/app/keyboard/keyboard.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"p-wrapper\">\n    <ul id=\"piano\">\n        <li *ngFor=\"let pianoKey of pianoKeys\">\n            <div class=\"anchor white-key\" [style.background]=\"getColor(pianoKey.whiteKeyId)\" (click)=\"keyPress(pianoKey.whiteKeyId)\">\n              <div class=\"key-name\">{{ pianoKey.name }}</div>\n            </div>\n            <span *ngIf=\"pianoKey.blackKeyId\" [style.background]=\"getColor(pianoKey.blackKeyId)\" (click)=\"keyPress(pianoKey.blackKeyId)\"></span>\n        </li>\n    </ul>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/keyboard/keyboard.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__notation_service__ = __webpack_require__(303);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_piano_service__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_quiz_service__ = __webpack_require__(96);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_piano_mode_enum__ = __webpack_require__(201);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NotationComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return KeyboardComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_quiz_service__ = __webpack_require__("./src/app/core/quiz.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var KeyboardComponent = (function () {
+    function KeyboardComponent(quizService) {
+        var _this = this;
+        this.quizService = quizService;
+        this.keyPlayed = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* EventEmitter */]();
+        this.highlightedKeyId = 0;
+        quizService.quizResult$.subscribe(function (result) { return _this.handleQuizResult(result); });
+        this.pianoKeys = [
+            { whiteKeyId: 40, name: 1 },
+            { whiteKeyId: 42, name: 2, blackKeyId: 41 },
+            { whiteKeyId: 44, name: 3, blackKeyId: 43 },
+            { whiteKeyId: 45, name: 4 },
+            { whiteKeyId: 47, name: 5, blackKeyId: 46 },
+            { whiteKeyId: 49, name: 6, blackKeyId: 48 },
+            { whiteKeyId: 51, name: 7, blackKeyId: 50 },
+        ];
+    }
+    KeyboardComponent.prototype.ngOnInit = function () {
+    };
+    KeyboardComponent.prototype.keyPress = function (keyNumber) {
+        this.keyPlayed.emit(keyNumber);
+    };
+    KeyboardComponent.prototype.handleQuizResult = function (result) {
+        var _this = this;
+        console.log("handleQuizResult: " + result);
+        if (result.selectedKeyId != result.actualNote.keyId) {
+            this.highlightedKeyId = result.actualNote.keyId;
+            setTimeout(function () { return _this.highlightedKeyId = 0; }, 1000);
+        }
+    };
+    KeyboardComponent.prototype.getColor = function (keyId) {
+        if (keyId == this.highlightedKeyId) {
+            return "#f0e68c";
+        }
+        else {
+            return "";
+        }
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["V" /* Output */])(), 
+        __metadata('design:type', Object)
+    ], KeyboardComponent.prototype, "keyPlayed", void 0);
+    KeyboardComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* Component */])({
+            selector: 'keyboard',
+            template: __webpack_require__("./src/app/keyboard/keyboard.component.html"),
+            styles: [__webpack_require__("./src/app/keyboard/keyboard.component.css")]
+        }), 
+        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__core_quiz_service__["a" /* QuizService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__core_quiz_service__["a" /* QuizService */]) === 'function' && _a) || Object])
+    ], KeyboardComponent);
+    return KeyboardComponent;
+    var _a;
+}());
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/keyboard.component.js.map
+
+/***/ }),
+
+/***/ "./src/app/notation/notation.component.css":
+/***/ (function(module, exports) {
+
+module.exports = "div {\n   background-color:#ffffff;\n}\n\n/* >>> is alias for /deep/ which will force style down through the child component tree. */\n\n/* match all ids that start with rest and hide them*/\n\n>>> [id^=\"rest\"] {\n   display: none;\n}\n\n>>> g.note {\n  /*fill: #000;*/\n  -webkit-transition: fill 0.3s; /* Safari */\n  transition: fill 0.3s;\n}\n\n>>> g.note:hover {\n  fill: #ff9800;\n  cursor: pointer;\n}\n\n\n"
+
+/***/ }),
+
+/***/ "./src/app/notation/notation.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div style=\"margin: 0 auto; width:800px;\" [innerHTML]=\"notationAsSVG | safe: 'html'\"></div>\n"
+
+/***/ }),
+
+/***/ "./src/app/notation/notation.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotationComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__notation_service__ = __webpack_require__("./src/app/notation/notation.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_piano_service__ = __webpack_require__("./src/app/core/piano.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_quiz_service__ = __webpack_require__("./src/app/core/quiz.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_piano_mode_enum__ = __webpack_require__("./src/app/core/piano-mode.enum.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -355,30 +777,30 @@ var NotationComponent = (function () {
         this.notationAsSVG = this.notationService.renderNotation();
     };
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Input */])(), 
         __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4__core_piano_mode_enum__["a" /* PianoMode */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__core_piano_mode_enum__["a" /* PianoMode */]) === 'function' && _a) || Object)
     ], NotationComponent.prototype, "mode", void 0);
     NotationComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* Component */])({
             selector: 'notation',
-            template: __webpack_require__(628),
-            styles: [__webpack_require__(621)]
+            template: __webpack_require__("./src/app/notation/notation.component.html"),
+            styles: [__webpack_require__("./src/app/notation/notation.component.css")]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__core_piano_service__["a" /* PianoService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__core_piano_service__["a" /* PianoService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__notation_service__["a" /* NotationService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__notation_service__["a" /* NotationService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__core_quiz_service__["a" /* QuizService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__core_quiz_service__["a" /* QuizService */]) === 'function' && _d) || Object])
     ], NotationComponent);
     return NotationComponent;
     var _a, _b, _c, _d;
 }());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/notation.component.js.map
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/notation.component.js.map
 
-/***/ },
+/***/ }),
 
-/***/ 303:
-/***/ function(module, exports, __webpack_require__) {
+/***/ "./src/app/notation/notation.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NotationService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NotationService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -436,443 +858,36 @@ var NotationService = (function () {
         return renderedNotation;
     };
     NotationService = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["H" /* Injectable */])(), 
         __metadata('design:paramtypes', [])
     ], NotationService);
     return NotationService;
 }());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/notation.service.js.map
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/notation.service.js.map
 
-/***/ },
+/***/ }),
 
-/***/ 345:
-/***/ function(module, exports) {
+/***/ "./src/app/note-info/note-info.component.css":
+/***/ (function(module, exports) {
 
-function webpackEmptyContext(req) {
-	throw new Error("Cannot find module '" + req + "'.");
-}
-webpackEmptyContext.keys = function() { return []; };
-webpackEmptyContext.resolve = webpackEmptyContext;
-module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 345;
+module.exports = ".content {\n   text-align: center;\n   padding: 10px;\n}\n\n.note-card {\n  display: inline-block;\n  text-align: center;\n  margin: 20px 10px;\n  padding: 0px;\n  width: 90px;\n   background-color: #FFFFF2;\n  color: #0D2534 ;\n  border: 2px solid #435D6D ;\n  -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);\n          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);\n  -webkit-transition: 0.3s;\n  transition: 0.3s;\n  cursor: pointer;\n}\n\n.note-card:hover {\n   color: #FFFFF2;\n  background-color: #617986;\n  -webkit-box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);\n          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);\n}\n\n.note-card-or {\n  display: inline-block;\n  text-align: center;\n  font-size: 22px;\n  color: #435D6D;\n  width: 30px;\n  padding-top: 50px;\n  vertical-align: top;\n}\n\n.name {\n  display: block;\n  height: 60px;\n  font-size: 40px;\n  font-weight: bold;\n  padding-top: 8px;\n}\n\n.octave {\n  display: block;\n  font-size: 14px;\n  padding: 4px;\n}\n"
 
+/***/ }),
 
-/***/ },
+/***/ "./src/app/note-info/note-info.component.html":
+/***/ (function(module, exports) {
 
-/***/ 346:
-/***/ function(module, exports, __webpack_require__) {
+module.exports = "<div class=\"header-secondary\">{{title}}</div>\n<div class=\"content\">\n  <div class=\"note-card\" *ngIf=\"currentNote\" (click)=\"playNote(currentNote)\">\n      <span class=\"name\">{{currentNote.fullname}}</span>\n      <span class=\"octave\">OCTAVE {{currentNote.octave}}</span>\n  </div>\n  <div class=\"note-card-or\" *ngIf=\"alternateNote\">\n    <span> OR </span>\n  </div>\n  <div class=\"note-card\" *ngIf=\"alternateNote\" (click)=\"playNote(alternateNote)\">\n    <span class=\"name\">{{alternateNote.fullname}}</span>\n    <span class=\"octave\">OCTAVE {{alternateNote.octave}}</span>\n  </div>\n  <div *ngIf=\"!currentNote\">\n    <div class=\"row\">\n      <span>Press a key on the <b>piano</b> <i>below</i>, </span>\n      <span style=\" white-space: nowrap;\">and see the note appear on the </span>\n      <span><b>piano score</b> to the <i>right.</i></span>\n    </div>\n  </div>\n</div>\n\n"
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(466);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__polyfills_ts__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(436);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(465);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_module__ = __webpack_require__(457);
+/***/ }),
 
-
-
-
-
-if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_37" /* enableProdMode */])();
-}
-__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_4__app_app_module__["a" /* AppModule */]);
-//# sourceMappingURL=C:/Projects/PianoPlay/src/main.js.map
-
-/***/ },
-
-/***/ 456:
-/***/ function(module, exports, __webpack_require__) {
+/***/ "./src/app/note-info/note-info.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__notation_notation_component__ = __webpack_require__(302);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_piano_service__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__core_sound_service__ = __webpack_require__(301);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__core_quiz_service__ = __webpack_require__(96);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__core_piano_mode_enum__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__core_quiz_status_enum__ = __webpack_require__(202);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var AppComponent = (function () {
-    function AppComponent(pianoService, soundService, quizService) {
-        var _this = this;
-        this.pianoService = pianoService;
-        this.soundService = soundService;
-        this.quizService = quizService;
-        this.PianoMode = __WEBPACK_IMPORTED_MODULE_5__core_piano_mode_enum__["a" /* PianoMode */]; // allows template access to PianoMode enum
-        this.title = 'Piano Play';
-        this.mode = __WEBPACK_IMPORTED_MODULE_5__core_piano_mode_enum__["a" /* PianoMode */].Play;
-        this.quizCorrect = 0;
-        this.quizIncorrect = 0;
-        this.quizLength = 16;
-        this.quizStatus = __WEBPACK_IMPORTED_MODULE_6__core_quiz_status_enum__["a" /* QuizStatus */].None;
-        this.resultDescription = "";
-        this.delayMs = 1000;
-        this.subscription = pianoService.notePlayed$.subscribe(function (note) { return _this.handleNotePlayed(note); });
-    }
-    AppComponent.prototype.ngOnInit = function () {
-        this.soundService.initialize();
-    };
-    AppComponent.prototype.handleModeSelected = function (selectedMode) {
-        if (this.mode == selectedMode)
-            return;
-        // Mode has been changed
-        this.mode = selectedMode;
-        if (this.mode == __WEBPACK_IMPORTED_MODULE_5__core_piano_mode_enum__["a" /* PianoMode */].Quiz) {
-            this.newQuiz();
-        }
-        else {
-            // Clear all notes from the notation component
-            this.notation.clear();
-        }
-    };
-    AppComponent.prototype.handleKeyPlayed = function (keyId) {
-        var _this = this;
-        if (this.mode == __WEBPACK_IMPORTED_MODULE_5__core_piano_mode_enum__["a" /* PianoMode */].Play) {
-            this.pianoService.playNoteByKeyId(keyId);
-        }
-        else {
-            // We are in Quiz mode, so just play the note sound
-            this.soundService.playNote(keyId);
-            // Update the quiz in progress
-            if (this.quizService.inProgress) {
-                this.quizService.recordResult(keyId, this.currentTestNote);
-                this.quizCorrect = this.quizService.correct;
-                this.quizIncorrect = this.quizService.incorrect;
-                if (this.quizService.next()) {
-                    this.currentTestNote = this.pianoService.getNote(this.quizService.getCurrentNoteId());
-                    this.notation.addNote(this.currentTestNote);
-                }
-                else {
-                    setTimeout(function () { return _this.finishQuiz(); }, this.delayMs);
-                }
-            }
-        }
-    };
-    AppComponent.prototype.handleNotePlayed = function (note) {
-        this.soundService.playNote(note.keyId);
-    };
-    AppComponent.prototype.handleButtonClicked = function (data) {
-        if (data.button == 'start') {
-            this.startQuiz(data.level);
-        }
-        else if (data.button = 'try-again') {
-            this.newQuiz();
-        }
-    };
-    AppComponent.prototype.newQuiz = function () {
-        this.notation.clear();
-        this.quizStatus = __WEBPACK_IMPORTED_MODULE_6__core_quiz_status_enum__["a" /* QuizStatus */].Starting;
-    };
-    AppComponent.prototype.startQuiz = function (level) {
-        var notes = [];
-        if (level == 'easy') {
-            notes = this.pianoService.getAllNaturalNoteIds(3, 4); // middle 2 octaves only!
-        }
-        else if (level == 'medium') {
-            notes = this.pianoService.getAllNaturalNoteIds();
-        }
-        else {
-            // hard level
-            notes = this.pianoService.getAllNoteIds();
-        }
-        this.quizService.startQuiz(this.quizLength, notes);
-        this.quizStatus = __WEBPACK_IMPORTED_MODULE_6__core_quiz_status_enum__["a" /* QuizStatus */].InProgress;
-        this.quizCorrect = this.quizService.correct;
-        this.quizIncorrect = this.quizService.incorrect;
-        this.currentTestNote = this.pianoService.getNote(this.quizService.getCurrentNoteId());
-        this.notation.addNote(this.currentTestNote);
-    };
-    AppComponent.prototype.finishQuiz = function () {
-        if (this.quizCorrect == this.quizLength) {
-            this.resultDescription = "Perfect score, awesome!";
-        }
-        else if (this.quizCorrect > (this.quizLength * 0.8)) {
-            this.resultDescription = "Great score, well done!";
-        }
-        else if (this.quizCorrect > (this.quizLength * 0.6)) {
-            this.resultDescription = "Good score!";
-        }
-        else if (this.quizCorrect > (this.quizLength * 0.4)) {
-            this.resultDescription = "Not bad, keep trying.";
-        }
-        else {
-            this.resultDescription = "Looks like you need more practice.";
-        }
-        this.quizStatus = __WEBPACK_IMPORTED_MODULE_6__core_quiz_status_enum__["a" /* QuizStatus */].Finished;
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_1__notation_notation_component__["a" /* NotationComponent */]), 
-        __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__notation_notation_component__["a" /* NotationComponent */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__notation_notation_component__["a" /* NotationComponent */]) === 'function' && _a) || Object)
-    ], AppComponent.prototype, "notation", void 0);
-    AppComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
-            selector: 'app-root',
-            template: __webpack_require__(626),
-            styles: [__webpack_require__(619)]
-        }), 
-        __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__core_piano_service__["a" /* PianoService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__core_piano_service__["a" /* PianoService */]) === 'function' && _b) || Object, (typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__core_sound_service__["a" /* SoundService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_3__core_sound_service__["a" /* SoundService */]) === 'function' && _c) || Object, (typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__core_quiz_service__["a" /* QuizService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_4__core_quiz_service__["a" /* QuizService */]) === 'function' && _d) || Object])
-    ], AppComponent);
-    return AppComponent;
-    var _a, _b, _c, _d;
-}());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/app.component.js.map
-
-/***/ },
-
-/***/ 457:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(426);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(432);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_common__ = __webpack_require__(149);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(456);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__keyboard_keyboard_component__ = __webpack_require__(460);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__notation_notation_component__ = __webpack_require__(302);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__play_control_play_control_component__ = __webpack_require__(462);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__note_info_note_info_component__ = __webpack_require__(461);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__quiz_info_quiz_info_component__ = __webpack_require__(463);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__core_piano_service__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__core_quiz_service__ = __webpack_require__(96);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__core_sound_service__ = __webpack_require__(301);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__notation_notation_service__ = __webpack_require__(303);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__shared_safe_pipe__ = __webpack_require__(464);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return AppModule; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var AppModule = (function () {
-    function AppModule() {
-    }
-    AppModule = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__keyboard_keyboard_component__["a" /* KeyboardComponent */],
-                __WEBPACK_IMPORTED_MODULE_7__notation_notation_component__["a" /* NotationComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__play_control_play_control_component__["a" /* PlayControlComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__note_info_note_info_component__["a" /* NoteInfoComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__quiz_info_quiz_info_component__["a" /* QuizInfoComponent */],
-                __WEBPACK_IMPORTED_MODULE_15__shared_safe_pipe__["a" /* SafePipe */]
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["c" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_4__angular_common__["b" /* CommonModule */]
-            ],
-            providers: [
-                __WEBPACK_IMPORTED_MODULE_11__core_piano_service__["a" /* PianoService */],
-                __WEBPACK_IMPORTED_MODULE_13__core_sound_service__["a" /* SoundService */],
-                __WEBPACK_IMPORTED_MODULE_14__notation_notation_service__["a" /* NotationService */],
-                __WEBPACK_IMPORTED_MODULE_12__core_quiz_service__["a" /* QuizService */]
-            ],
-            exports: [],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppModule);
-    return AppModule;
-}());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/app.module.js.map
-
-/***/ },
-
-/***/ 458:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PianoNote; });
-var PianoNote = (function () {
-    function PianoNote(keyId, noteId) {
-        this.keyId = keyId;
-        this.noteId = noteId;
-        if (keyId < 16 || keyId > 64) {
-            throw new RangeError("Invalid keyId. The valid range of keyId is 16 to 64.");
-        }
-        if (noteId.length < 2 || noteId.length > 3) {
-            throw new RangeError("noteId is invalid");
-        }
-        this.name = noteId[0].toLowerCase();
-        this.octave = parseInt(noteId[1]);
-        var accidentalSymbol = "";
-        if (noteId.length == 3) {
-            this.accidental = noteId[2];
-            if (this.accidental == "s") {
-                accidentalSymbol = '\u266F';
-            }
-            else if (this.accidental == "f") {
-                accidentalSymbol = '\u266D';
-            }
-        }
-        this.fullname = this.name.toUpperCase() + accidentalSymbol;
-    }
-    return PianoNote;
-}());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/piano-note.js.map
-
-/***/ },
-
-/***/ 459:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return QuizResult; });
-var QuizResult = (function () {
-    function QuizResult() {
-    }
-    return QuizResult;
-}());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/quiz-result.js.map
-
-/***/ },
-
-/***/ 460:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_quiz_service__ = __webpack_require__(96);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return KeyboardComponent; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var KeyboardComponent = (function () {
-    function KeyboardComponent(quizService) {
-        var _this = this;
-        this.quizService = quizService;
-        this.keyPlayed = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_20" /* EventEmitter */]();
-        this.highlightedKeyId = 0;
-        quizService.quizResult$.subscribe(function (result) { return _this.handleQuizResult(result); });
-        this.pianoKeys = [
-            { whiteKeyId: 16 },
-            { whiteKeyId: 18, blackKeyId: 17 },
-            { whiteKeyId: 20, blackKeyId: 19 },
-            { whiteKeyId: 21 },
-            { whiteKeyId: 23, blackKeyId: 22 },
-            { whiteKeyId: 25, blackKeyId: 24 },
-            { whiteKeyId: 27, blackKeyId: 26 },
-            { whiteKeyId: 28 },
-            { whiteKeyId: 30, blackKeyId: 29 },
-            { whiteKeyId: 32, blackKeyId: 31 },
-            { whiteKeyId: 33 },
-            { whiteKeyId: 35, blackKeyId: 34 },
-            { whiteKeyId: 37, blackKeyId: 36 },
-            { whiteKeyId: 39, blackKeyId: 38 },
-            { whiteKeyId: 40 },
-            { whiteKeyId: 42, blackKeyId: 41 },
-            { whiteKeyId: 44, blackKeyId: 43 },
-            { whiteKeyId: 45 },
-            { whiteKeyId: 47, blackKeyId: 46 },
-            { whiteKeyId: 49, blackKeyId: 48 },
-            { whiteKeyId: 51, blackKeyId: 50 },
-            { whiteKeyId: 52 },
-            { whiteKeyId: 54, blackKeyId: 53 },
-            { whiteKeyId: 56, blackKeyId: 55 },
-            { whiteKeyId: 57 },
-            { whiteKeyId: 59, blackKeyId: 58 },
-            { whiteKeyId: 61, blackKeyId: 60 },
-            { whiteKeyId: 63, blackKeyId: 62 },
-            { whiteKeyId: 64 }
-        ];
-    }
-    KeyboardComponent.prototype.ngOnInit = function () {
-    };
-    KeyboardComponent.prototype.keyPress = function (keyNumber) {
-        this.keyPlayed.emit(keyNumber);
-    };
-    KeyboardComponent.prototype.handleQuizResult = function (result) {
-        var _this = this;
-        console.log("handleQuizResult: " + result);
-        if (result.selectedKeyId != result.actualNote.keyId) {
-            this.highlightedKeyId = result.actualNote.keyId;
-            setTimeout(function () { return _this.highlightedKeyId = 0; }, 1000);
-        }
-    };
-    KeyboardComponent.prototype.getColor = function (keyId) {
-        if (keyId == this.highlightedKeyId) {
-            return "#f0e68c";
-        }
-        else {
-            return "";
-        }
-    };
-    __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Output */])(), 
-        __metadata('design:type', Object)
-    ], KeyboardComponent.prototype, "keyPlayed", void 0);
-    KeyboardComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
-            selector: 'keyboard',
-            template: __webpack_require__(627),
-            styles: [__webpack_require__(620)]
-        }), 
-        __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__core_quiz_service__["a" /* QuizService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__core_quiz_service__["a" /* QuizService */]) === 'function' && _a) || Object])
-    ], KeyboardComponent);
-    return KeyboardComponent;
-    var _a;
-}());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/keyboard.component.js.map
-
-/***/ },
-
-/***/ 461:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_piano_service__ = __webpack_require__(139);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return NoteInfoComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NoteInfoComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_piano_service__ = __webpack_require__("./src/app/core/piano.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -907,27 +922,41 @@ var NoteInfoComponent = (function () {
         this.pianoService.playNote(note.noteId);
     };
     NoteInfoComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* Component */])({
             selector: 'note-info',
-            template: __webpack_require__(629),
-            styles: [__webpack_require__(622)]
+            template: __webpack_require__("./src/app/note-info/note-info.component.html"),
+            styles: [__webpack_require__("./src/app/note-info/note-info.component.css")]
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__core_piano_service__["a" /* PianoService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__core_piano_service__["a" /* PianoService */]) === 'function' && _a) || Object])
     ], NoteInfoComponent);
     return NoteInfoComponent;
     var _a;
 }());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/note-info.component.js.map
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/note-info.component.js.map
 
-/***/ },
+/***/ }),
 
-/***/ 462:
-/***/ function(module, exports, __webpack_require__) {
+/***/ "./src/app/play-control/play-control.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ".content {\n  padding: 10px;\n  text-align: center;\n}\n\n.selected {\n   background-color: #513410;\n   font-weight: bold;\n}\n\n#play-btn {\n   margin-right: 10px;\n}\n\n\n"
+
+/***/ }),
+
+/***/ "./src/app/play-control/play-control.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"panel\">\n   <div class=\"header\">{{ title }}</div>\n   <div class=\"content\">\n      <div class=\"row\">\n         <span>A simple and fun way for beginners to learn music notation.</span>\n      </div>\n         <div class=\"row\">\n            <button id=\"play-btn\" class=\"btn btn-primary\" [class.selected]=\"mode==PianoMode.Play\" (click)=\"handlePlayBtnClick()\">Play</button>\n            <button id=\"quiz-btn\" class=\"btn btn-primary\" [class.selected]=\"mode==PianoMode.Quiz\" (click)=\"handleQuizBtnClick()\">Quiz</button>\n         </div>\n   </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/play-control/play-control.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_piano_mode_enum__ = __webpack_require__(201);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return PlayControlComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PlayControlComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_piano_mode_enum__ = __webpack_require__("./src/app/core/piano-mode.enum.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -942,7 +971,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var PlayControlComponent = (function () {
     function PlayControlComponent() {
         this.PianoMode = __WEBPACK_IMPORTED_MODULE_1__core_piano_mode_enum__["a" /* PianoMode */]; // allows template access to PianoMode enum
-        this.modeSelected = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_20" /* EventEmitter */]();
+        this.modeSelected = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* EventEmitter */]();
     }
     PlayControlComponent.prototype.ngOnInit = function () {
     };
@@ -954,40 +983,54 @@ var PlayControlComponent = (function () {
     };
     __decorate([
         // allows template access to PianoMode enum
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Input */])(), 
         __metadata('design:type', String)
     ], PlayControlComponent.prototype, "title", void 0);
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Input */])(), 
         __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__core_piano_mode_enum__["a" /* PianoMode */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__core_piano_mode_enum__["a" /* PianoMode */]) === 'function' && _a) || Object)
     ], PlayControlComponent.prototype, "mode", void 0);
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Output */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["V" /* Output */])(), 
         __metadata('design:type', Object)
     ], PlayControlComponent.prototype, "modeSelected", void 0);
     PlayControlComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* Component */])({
             selector: 'play-control',
-            template: __webpack_require__(630),
-            styles: [__webpack_require__(623)]
+            template: __webpack_require__("./src/app/play-control/play-control.component.html"),
+            styles: [__webpack_require__("./src/app/play-control/play-control.component.css")]
         }), 
         __metadata('design:paramtypes', [])
     ], PlayControlComponent);
     return PlayControlComponent;
     var _a;
 }());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/play-control.component.js.map
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/play-control.component.js.map
 
-/***/ },
+/***/ }),
 
-/***/ 463:
-/***/ function(module, exports, __webpack_require__) {
+/***/ "./src/app/quiz-info/quiz-info.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ".content {\n   text-align: center;\n   padding: 10px;\n}\n\n.dropdown {\n   padding: 5px;\n   margin: 0 0 0 10px;\n   width: 100px;\n   font-size: 16px;\n}\n\n.score-label {\n  display: inline-block;\n  width: 100px;\n  font-size: 18px;\n  padding: 4px;\n  margin: 0;\n  color: #FFFFF2;\n  background-color: #617986;\n  border: 2px solid #617986;\n}\n\n.score {\n  display: inline-block;\n  width: 35px;\n  font-size: 18px;\n  padding: 4px;\n  margin: 0;\n  color: #1C3747;\n  background-color: #FFFFFF;\n  border: 2px solid #617986 ;\n}\n\n.correct {\n  color: #FFFFFF;\n  background-color: #4CAF50;\n  border: 2px solid #4CAF50 ;\n}\n\n.incorrect {\n  color: #FFFFFF;\n  background-color: #f44336;\n  border: 2px solid #f44336 ;\n}\n\n.red { background-color: #f44336; }\n\n.green { background-color: #4CAF50; }\n"
+
+/***/ }),
+
+/***/ "./src/app/quiz-info/quiz-info.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"header-secondary\">Quiz</div>\n<div class=\"content\">\n   <div *ngIf=\"status == QuizStatus.Starting\">\n      <div class=\"row\">\n         <span>Select level:</span>\n         <select #level class=\"dropdown\">\n            <option value=\"easy\">Easy</option>\n            <option value=\"medium\">Medium</option>\n            <option value=\"hard\">Hard</option>\n         </select>\n      </div>\n      <div class=\"row\">\n         <button id=\"start-btn\" class=\"btn btn-secondary\"(click)=\"handleStartBtnClick(level.value)\">Start</button>\n      </div>\n   </div>\n   <div *ngIf=\"status == QuizStatus.InProgress\">\n      <div class=\"row\">\n         <span>Press the correct key on the piano.</span>\n      </div>\n      <div class=\"row\">\n         <span class=\"score-label\">Score</span><span class=\"score correct\">{{ correct }}</span><span class=\"score incorrect\">{{ incorrect }}</span>\n      </div>\n      <div class=\"row\">\n         <span>{{ message }}</span>\n      </div>\n   </div>\n   <div *ngIf=\"status == QuizStatus.Finished\">\n      <div class=\"row\">\n         <span>Your score: </span><span><b>{{ correct }}</b> out of {{ total }}</span>\n      </div>\n      <div class=\"row\">\n         <span>{{ description }}</span>\n      </div>\n      <div class=\"row\">\n         <button id=\"tryagain-btn\" class=\"btn btn-secondary\"(click)=\"handleTryAgainBtnClick()\">Try Again?</button>\n      </div>\n   </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/quiz-info/quiz-info.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_quiz_service__ = __webpack_require__(96);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_quiz_status_enum__ = __webpack_require__(202);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return QuizInfoComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuizInfoComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_quiz_service__ = __webpack_require__("./src/app/core/quiz.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__core_quiz_status_enum__ = __webpack_require__("./src/app/core/quiz-status.enum.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1005,7 +1048,7 @@ var QuizInfoComponent = (function () {
         var _this = this;
         this.quizService = quizService;
         this.QuizStatus = __WEBPACK_IMPORTED_MODULE_2__core_quiz_status_enum__["a" /* QuizStatus */]; // allows template access to QuizStatus enum
-        this.buttonClicked = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["_20" /* EventEmitter */]();
+        this.buttonClicked = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* EventEmitter */]();
         this.subscription = quizService.quizResult$.subscribe(function (result) {
             if (result.selectedKeyId == result.actualNote.keyId) {
                 _this.message = "\u2714 Correct, well done!";
@@ -1030,51 +1073,51 @@ var QuizInfoComponent = (function () {
     };
     __decorate([
         // allows template access to QuizStatus enum
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Input */])(), 
         __metadata('design:type', Number)
     ], QuizInfoComponent.prototype, "correct", void 0);
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Input */])(), 
         __metadata('design:type', Number)
     ], QuizInfoComponent.prototype, "incorrect", void 0);
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Input */])(), 
         __metadata('design:type', Number)
     ], QuizInfoComponent.prototype, "total", void 0);
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Input */])(), 
         __metadata('design:type', (typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__core_quiz_status_enum__["a" /* QuizStatus */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_2__core_quiz_status_enum__["a" /* QuizStatus */]) === 'function' && _a) || Object)
     ], QuizInfoComponent.prototype, "status", void 0);
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Input */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Input */])(), 
         __metadata('design:type', String)
     ], QuizInfoComponent.prototype, "description", void 0);
     __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Output */])(), 
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["V" /* Output */])(), 
         __metadata('design:type', Object)
     ], QuizInfoComponent.prototype, "buttonClicked", void 0);
     QuizInfoComponent = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["G" /* Component */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* Component */])({
             selector: 'quiz-info',
-            template: __webpack_require__(631),
-            styles: [__webpack_require__(624)]
+            template: __webpack_require__("./src/app/quiz-info/quiz-info.component.html"),
+            styles: [__webpack_require__("./src/app/quiz-info/quiz-info.component.css")]
         }), 
         __metadata('design:paramtypes', [(typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__core_quiz_service__["a" /* QuizService */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__core_quiz_service__["a" /* QuizService */]) === 'function' && _b) || Object])
     ], QuizInfoComponent);
     return QuizInfoComponent;
     var _a, _b;
 }());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/quiz-info.component.js.map
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/quiz-info.component.js.map
 
-/***/ },
+/***/ }),
 
-/***/ 464:
-/***/ function(module, exports, __webpack_require__) {
+/***/ "./src/app/shared/safe.pipe.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(137);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return SafePipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SafePipe; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__("./node_modules/@angular/platform-browser/index.js");
 // SafePipe code provided by Kim Biesbjerg
 // https://forum.ionicframework.com/t/inserting-html-via-angular-2-use-of-domsanitizationservice-bypasssecuritytrusthtml/62562/5
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1104,7 +1147,7 @@ var SafePipe = (function () {
         }
     };
     SafePipe = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Pipe */])({
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Y" /* Pipe */])({
             name: 'safe'
         }), 
         __metadata('design:paramtypes', [(typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["b" /* DomSanitizer */] !== 'undefined' && __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["b" /* DomSanitizer */]) === 'function' && _a) || Object])
@@ -1112,15 +1155,15 @@ var SafePipe = (function () {
     return SafePipe;
     var _a;
 }());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/safe.pipe.js.map
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/safe.pipe.js.map
 
-/***/ },
+/***/ }),
 
-/***/ 465:
-/***/ function(module, exports, __webpack_require__) {
+/***/ "./src/environments/environment.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return environment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
 // The file contents for the current environment will overwrite these during build.
 // The build system defaults to the dev environment which uses `environment.ts`, but if you do
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
@@ -1128,45 +1171,68 @@ var SafePipe = (function () {
 var environment = {
     production: false
 };
-//# sourceMappingURL=C:/Projects/PianoPlay/src/environment.js.map
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/environment.js.map
 
-/***/ },
+/***/ }),
 
-/***/ 466:
-/***/ function(module, exports, __webpack_require__) {
+/***/ "./src/main.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(480);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__("./src/polyfills.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__("./node_modules/@angular/platform-browser-dynamic/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__("./node_modules/@angular/core/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("./src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_module__ = __webpack_require__("./src/app/app.module.ts");
+
+
+
+
+
+if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
+    Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["_24" /* enableProdMode */])();
+}
+Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_4__app_app_module__["a" /* AppModule */]);
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/main.js.map
+
+/***/ }),
+
+/***/ "./src/polyfills.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__("./node_modules/core-js/es6/symbol.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(473);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__("./node_modules/core-js/es6/object.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(469);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__("./node_modules/core-js/es6/function.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(475);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__("./node_modules/core-js/es6/parse-int.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(474);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__("./node_modules/core-js/es6/parse-float.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(472);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__("./node_modules/core-js/es6/number.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(471);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__("./node_modules/core-js/es6/math.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(479);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__("./node_modules/core-js/es6/string.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(468);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__("./node_modules/core-js/es6/date.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(467);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__("./node_modules/core-js/es6/array.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(477);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__("./node_modules/core-js/es6/regexp.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(470);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__("./node_modules/core-js/es6/map.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(478);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__("./node_modules/core-js/es6/set.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(476);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__("./node_modules/core-js/es6/reflect.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(481);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__("./node_modules/core-js/es7/reflect.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(644);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__("./node_modules/zone.js/dist/zone.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 
 
@@ -1184,191 +1250,17 @@ var environment = {
 
 
 
-//# sourceMappingURL=C:/Projects/PianoPlay/src/polyfills.js.map
+//# sourceMappingURL=/Users/idancohen/projects/PianoPlay/src/polyfills.js.map
 
-/***/ },
+/***/ }),
 
-/***/ 619:
-/***/ function(module, exports) {
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = "#container {\r\n  width: 1128px;\r\n  margin: 20px auto 0px;\r\n}\r\n\r\n#side-content {\r\n  float: left;\r\n  width: 328px;\r\n}\r\n\r\n#notation-component {\r\n  float: right;\r\n  width: 800px;\r\n  height: 392px;\r\n  background:#fff;\r\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\r\n  margin: 0 0 20px 0;\r\n}\r\n\r\n#keyboard-component {\r\n  clear: both;\r\n  width: 1128px;\r\n  margin: 0;\r\n}\r\n\r\n#appDetails {\r\n  text-align: right;\r\n  color: rgba(0,0,0,0.8);\r\n  font-size: 12px;\r\n  margin: 0;\r\n  padding: 10px 5px 0 0 ;\r\n}\r\n\r\n#appDetails a {\r\n  color: rgba(0,0,0,0.6);\r\n}\r\n\r\n#appDetails a:hover {\r\n  text-decoration: none;\r\n}\r\n\r\n.panel {\r\n  height: 186px;\r\n  padding: 0px;\r\n  margin: 0 20px 20px 0;\r\n  background:#FFFFF2;\r\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\r\n}\r\n"
-
-/***/ },
-
-/***/ 620:
-/***/ function(module, exports) {
-
-module.exports = "/**\r\n * Pure CSS3 Piano by Taufik Nurrohman\r\n * On: 1 December 2011\r\n * URL: http://hompimpaalaihumgambreng.blogspot.com/\r\n * Note: This experiment is under the God Almighty License.\r\n * Please do not replace or remove the attribution above if you want to save/modify this project legally.\r\n * Good luck!\r\n */\r\n\r\n#p-wrapper > * {\r\n    margin:0px;\r\n    padding:0px;\r\n    list-style:none;\r\n}\r\n\r\n#p-wrapper {\r\n    margin-top: 20px;\r\n    background:#000;\r\n    background:-webkit-linear-gradient(-60deg,#000,#333,#000,#666,#333 70%);\r\n    background:-webkit-linear-gradient(150deg,#000,#333,#000,#666,#333 70%);\r\n    background:linear-gradient(-60deg,#000,#333,#000,#666,#333 70%);\r\n    width: 1114px;\r\n    position:relative;\r\n    left: 0;\r\n    padding-left: 10px;\r\n    padding-top: 5px;\r\n    box-shadow:0 2px 0px #666,0 3px 0px #555,0 4px 0px #444,0 6px 6px #000,inset 0 -1px 1px rgba(255,255,255,0.5),inset 0 -4px 5px #000;\r\n    border:2px solid #333;\r\n    border-radius:0 0 5px 5px;\r\n    -webkit-animation:taufik 2s;\r\n    animation:taufik 2s;\r\n}\r\n\r\n/* Tuts */\r\nul#piano {\r\n  display:block;\r\n  width:100%;\r\n  height:240px;\r\n  border-top:2px solid #222;\r\n}\r\n\r\nul#piano li {\r\n  list-style:none;\r\n  float:left;\r\n  display:inline;\r\n  background:#aaa;\r\n  width:38px;\r\n  position:relative;\r\n  cursor: pointer;\r\n}\r\n\r\nul#piano li a,ul#piano li div.anchor {\r\n  display:block;\r\n  height:220px;\r\n  background:#fff;\r\n  background:-webkit-linear-gradient(-30deg,#f5f5f5,#fff);\r\n  background:-webkit-linear-gradient(120deg,#f5f5f5,#fff);\r\n  background:linear-gradient(-30deg,#f5f5f5,#fff);\r\n  border:1px solid #ccc;\r\n  box-shadow:inset 0 1px 0px #fff,inset 0 -1px 0px #fff,inset 1px 0px 0px #fff,inset -1px 0px 0px #fff,0 4px 3px rgba(0,0,0,0.7);\r\n  border-radius:0 0 3px 3px;\r\n}\r\n\r\nul#piano li.middlec a,ul#piano li.middlec div.anchor {\r\n    background: #dddddd;\r\n}\r\n\r\nul#piano li a:active,ul#piano li div.anchor:active {\r\n  box-shadow:0 2px 2px rgba(0,0,0,0.4);\r\n  position:relative;\r\n  top:2px;\r\n  height:216px;\r\n}\r\n\r\nul#piano li a:active:before,ul#piano li div.anchor:active:before {\r\n  content:\"\";\r\n  width:0px;\r\n  height:0px;\r\n  border-width:216px 5px 0px;\r\n  border-style:solid;\r\n  border-color:transparent transparent transparent rgba(0,0,0,0.1);\r\n  position:absolute;\r\n  left:0px;\r\n  top:0px;\r\n}\r\n\r\nul#piano li a:active:after,ul#piano li div.anchor:active:after {\r\n  content:\"\";\r\n  width:0px;\r\n  height:0px;\r\n  border-width:216px 5px 0px;\r\n  border-style:solid;\r\n  border-color:transparent rgba(0,0,0,0.1) transparent transparent;\r\n  position:absolute;\r\n  right:0px;\r\n  top:0px;\r\n}\r\n\r\n/* Black Tuts */\r\nul#piano li span {\r\n  position:absolute;\r\n  top:0px;\r\n  left:-12px;\r\n  width:20px;\r\n  height:120px;\r\n  background:#333;\r\n  background:-webkit-linear-gradient(-20deg,#333,#000,#333);\r\n  background:-webkit-linear-gradient(110deg,#333,#000,#333);\r\n  background:linear-gradient(-20deg,#333,#000,#333);\r\n  z-index:10;\r\n  border-width:1px 2px 7px;\r\n  border-style:solid;\r\n  border-color:#666 #222 #111 #555;\r\n  box-shadow:inset 0px -1px 2px rgba(255,255,255,0.4),0 2px 3px rgba(0,0,0,0.4);\r\n  border-radius:0 0 2px 2px;\r\n}\r\n\r\nul#piano li span:active {\r\n  border-bottom-width:2px;\r\n  height:123px;\r\n  box-shadow:inset 0px -1px 1px rgba(255,255,255,0.4),0 1px 0px rgba(0,0,0,0.8),0 2px 2px rgba(0,0,0,0.4),0 -1px 0px #000;\r\n}\r\n\r\n/* Animation */\r\n@-webkit-keyframes taufik {\r\n  from {opacity:0;}\r\n  to {opacity:1;}\r\n}\r\n@keyframes taufik {\r\n  from {opacity:0;}\r\n  to {opacity:1;}\r\n}\r\n"
-
-/***/ },
-
-/***/ 621:
-/***/ function(module, exports) {
-
-module.exports = "div {\r\n   background-color:#ffffff;\r\n}\r\n\r\n/* >>> is alias for /deep/ which will force style down through the child component tree. */\r\n/* match all ids that start with rest and hide them*/\r\n>>> [id^=\"rest\"] {\r\n   display: none;\r\n}\r\n\r\n>>> g.note {\r\n  /*fill: #000;*/\r\n  -webkit-transition: fill 0.3s; /* Safari */\r\n  transition: fill 0.3s;\r\n}\r\n\r\n>>> g.note:hover {\r\n  fill: #ff9800;\r\n  cursor: pointer;\r\n}\r\n\r\n\r\n"
-
-/***/ },
-
-/***/ 622:
-/***/ function(module, exports) {
-
-module.exports = ".content {\r\n   text-align: center;\r\n   padding: 10px;\r\n}\r\n\r\n.note-card {\r\n  display: inline-block;\r\n  text-align: center;\r\n  margin: 20px 10px;\r\n  padding: 0px;\r\n  width: 90px;\r\n   background-color: #FFFFF2;\r\n  color: #0D2534 ;\r\n  border: 2px solid #435D6D ;\r\n  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);\r\n  -webkit-transition: 0.3s;\r\n  transition: 0.3s;\r\n  cursor: pointer;\r\n}\r\n\r\n.note-card:hover {\r\n   color: #FFFFF2;\r\n  background-color: #617986;\r\n  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);\r\n}\r\n\r\n.note-card-or {\r\n  display: inline-block;\r\n  text-align: center;\r\n  font-size: 22px;\r\n  color: #435D6D;\r\n  width: 30px;\r\n  padding-top: 50px;\r\n  vertical-align: top;\r\n}\r\n\r\n.name {\r\n  display: block;\r\n  height: 60px;\r\n  font-size: 40px;\r\n  font-weight: bold;\r\n  padding-top: 8px;\r\n}\r\n\r\n.octave {\r\n  display: block;\r\n  font-size: 14px;\r\n  padding: 4px;\r\n}\r\n"
-
-/***/ },
-
-/***/ 623:
-/***/ function(module, exports) {
-
-module.exports = ".content {\r\n  padding: 10px;\r\n  text-align: center;\r\n}\r\n\r\n.selected {\r\n   background-color: #513410;\r\n   font-weight: bold;\r\n}\r\n\r\n#play-btn {\r\n   margin-right: 10px;\r\n}\r\n\r\n\r\n"
-
-/***/ },
-
-/***/ 624:
-/***/ function(module, exports) {
-
-module.exports = ".content {\r\n   text-align: center;\r\n   padding: 10px;\r\n}\r\n\r\n.dropdown {\r\n   padding: 5px;\r\n   margin: 0 0 0 10px;\r\n   width: 100px;\r\n   font-size: 16px;\r\n}\r\n\r\n.score-label {\r\n  display: inline-block;\r\n  width: 100px;\r\n  font-size: 18px;\r\n  padding: 4px;\r\n  margin: 0;\r\n  color: #FFFFF2;\r\n  background-color: #617986;\r\n  border: 2px solid #617986;\r\n}\r\n\r\n.score {\r\n  display: inline-block;\r\n  width: 35px;\r\n  font-size: 18px;\r\n  padding: 4px;\r\n  margin: 0;\r\n  color: #1C3747;\r\n  background-color: #FFFFFF;\r\n  border: 2px solid #617986 ;\r\n}\r\n\r\n.correct {\r\n  color: #FFFFFF;\r\n  background-color: #4CAF50;\r\n  border: 2px solid #4CAF50 ;\r\n}\r\n\r\n.incorrect {\r\n  color: #FFFFFF;\r\n  background-color: #f44336;\r\n  border: 2px solid #f44336 ;\r\n}\r\n\r\n.red { background-color: #f44336; }\r\n.green { background-color: #4CAF50; }\r\n"
-
-/***/ },
-
-/***/ 626:
-/***/ function(module, exports) {
-
-module.exports = "<div id=\"container\">\r\n  <div id=\"side-content\">\r\n    <div class=\"panel\">\r\n      <play-control [title]=\"title\" [mode]=\"mode\" (modeSelected)=\"handleModeSelected($event)\"></play-control>\r\n    </div>\r\n    <div class=\"panel\">\r\n      <div *ngIf=\"(mode == PianoMode.Play)\" >\r\n         <note-info></note-info>\r\n      </div>\r\n      <div *ngIf=\"(mode == PianoMode.Quiz)\" >\r\n         <quiz-info\r\n            [status]=\"quizStatus\"\r\n            [correct]=\"quizCorrect\"\r\n            [incorrect]=\"quizIncorrect\"\r\n            [total]=\"quizLength\"\r\n            [description]=\"resultDescription\"\r\n            (buttonClicked)=\"handleButtonClicked($event)\">\r\n         </quiz-info>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div id=\"notation-component\">\r\n    <notation [mode]=\"mode\"></notation>\r\n  </div>\r\n  <div id=\"keyboard-component\">\r\n    <keyboard (keyPlayed)=\"handleKeyPlayed($event)\"></keyboard>\r\n  </div>\r\n  <p id=\"appDetails\">Built by <a href=\"http://deanmalone.net/\" target=\"_blank\">Dean Malone</a> using Angular 2 - Source available on <a href=\"https://github.com/deanmalone/PianoPlay/\" target=\"_blank\">GitHub</a></p>\r\n</div>\r\n"
-
-/***/ },
-
-/***/ 627:
-/***/ function(module, exports) {
-
-module.exports = "<div id=\"p-wrapper\">\r\n    <ul id=\"piano\">\r\n        <li *ngFor=\"let pianoKey of pianoKeys\">\r\n            <div class=\"anchor\" [style.background]=\"getColor(pianoKey.whiteKeyId)\" (click)=\"keyPress(pianoKey.whiteKeyId)\"></div>\r\n            <span *ngIf=\"pianoKey.blackKeyId\" [style.background]=\"getColor(pianoKey.blackKeyId)\" (click)=\"keyPress(pianoKey.blackKeyId)\"></span>\r\n        </li>\r\n    </ul>\r\n</div>\r\n"
-
-/***/ },
-
-/***/ 628:
-/***/ function(module, exports) {
-
-module.exports = "<div style=\"margin: 0 auto; width:800px;\" [innerHTML]=\"notationAsSVG | safe: 'html'\"></div>\r\n"
-
-/***/ },
-
-/***/ 629:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"header-secondary\">{{title}}</div>\r\n<div class=\"content\">\r\n  <div class=\"note-card\" *ngIf=\"currentNote\" (click)=\"playNote(currentNote)\">\r\n      <span class=\"name\">{{currentNote.fullname}}</span>\r\n      <span class=\"octave\">OCTAVE {{currentNote.octave}}</span>\r\n  </div>\r\n  <div class=\"note-card-or\" *ngIf=\"alternateNote\">\r\n    <span> OR </span>\r\n  </div>\r\n  <div class=\"note-card\" *ngIf=\"alternateNote\" (click)=\"playNote(alternateNote)\">\r\n    <span class=\"name\">{{alternateNote.fullname}}</span>\r\n    <span class=\"octave\">OCTAVE {{alternateNote.octave}}</span>\r\n  </div>\r\n  <div *ngIf=\"!currentNote\">\r\n    <div class=\"row\">\r\n      <span>Press a key on the <b>piano</b> <i>below</i>, </span>\r\n      <span style=\" white-space: nowrap;\">and see the note appear on the </span>\r\n      <span><b>piano score</b> to the <i>right.</i></span>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n"
-
-/***/ },
-
-/***/ 630:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"panel\">\r\n   <div class=\"header\">{{ title }}</div>\r\n   <div class=\"content\">\r\n      <div class=\"row\">\r\n         <span>A simple and fun way for beginners to learn music notation.</span>\r\n      </div>\r\n         <div class=\"row\">\r\n            <button id=\"play-btn\" class=\"btn btn-primary\" [class.selected]=\"mode==PianoMode.Play\" (click)=\"handlePlayBtnClick()\">Play</button>\r\n            <button id=\"quiz-btn\" class=\"btn btn-primary\" [class.selected]=\"mode==PianoMode.Quiz\" (click)=\"handleQuizBtnClick()\">Quiz</button>\r\n         </div>\r\n   </div>\r\n</div>\r\n"
-
-/***/ },
-
-/***/ 631:
-/***/ function(module, exports) {
-
-module.exports = "<div class=\"header-secondary\">Quiz</div>\r\n<div class=\"content\">\r\n   <div *ngIf=\"status == QuizStatus.Starting\">\r\n      <div class=\"row\">\r\n         <span>Select level:</span>\r\n         <select #level class=\"dropdown\">\r\n            <option value=\"easy\">Easy</option>\r\n            <option value=\"medium\">Medium</option>\r\n            <option value=\"hard\">Hard</option>\r\n         </select>\r\n      </div>\r\n      <div class=\"row\">\r\n         <button id=\"start-btn\" class=\"btn btn-secondary\"(click)=\"handleStartBtnClick(level.value)\">Start</button>\r\n      </div>\r\n   </div>\r\n   <div *ngIf=\"status == QuizStatus.InProgress\">\r\n      <div class=\"row\">\r\n         <span>Press the correct key on the piano.</span>\r\n      </div>\r\n      <div class=\"row\">\r\n         <span class=\"score-label\">Score</span><span class=\"score correct\">{{ correct }}</span><span class=\"score incorrect\">{{ incorrect }}</span>\r\n      </div>\r\n      <div class=\"row\">\r\n         <span>{{ message }}</span>\r\n      </div>\r\n   </div>\r\n   <div *ngIf=\"status == QuizStatus.Finished\">\r\n      <div class=\"row\">\r\n         <span>Your score: </span><span><b>{{ correct }}</b> out of {{ total }}</span>\r\n      </div>\r\n      <div class=\"row\">\r\n         <span>{{ description }}</span>\r\n      </div>\r\n      <div class=\"row\">\r\n         <button id=\"tryagain-btn\" class=\"btn btn-secondary\"(click)=\"handleTryAgainBtnClick()\">Try Again?</button>\r\n      </div>\r\n   </div>\r\n</div>\r\n"
-
-/***/ },
-
-/***/ 645:
-/***/ function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(346);
+module.exports = __webpack_require__("./src/main.ts");
 
 
-/***/ },
+/***/ })
 
-/***/ 96:
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__quiz_result__ = __webpack_require__(459);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quiz_status_enum__ = __webpack_require__(202);
-/* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return QuizService; });
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var QuizService = (function () {
-    function QuizService() {
-        this.quizLength = 16;
-        this.quizNotes = [];
-        this.quizResults = [];
-        this.quizIndex = 0;
-        this.inProgress = false;
-        this.correct = 0;
-        this.incorrect = 0;
-        this.status = __WEBPACK_IMPORTED_MODULE_3__quiz_status_enum__["a" /* QuizStatus */].None;
-        // Observable sources
-        this.quizResultSource = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
-        // Observable streams
-        this.quizResult$ = this.quizResultSource.asObservable();
-    }
-    QuizService.prototype.startQuiz = function (quizLength, availableNotes) {
-        this.quizLength = quizLength;
-        // clear quiz data
-        this.quizNotes.length = 0;
-        this.quizResults.length = 0;
-        this.inProgress = true;
-        this.quizIndex = 0;
-        this.correct = 0;
-        this.incorrect = 0;
-        // generate random notes from the availableNotes array
-        for (var i = 0; i < this.quizLength; i++) {
-            this.quizNotes.push(availableNotes[Math.floor(Math.random() * availableNotes.length)]);
-        }
-    };
-    QuizService.prototype.getCurrentNoteId = function () {
-        return this.quizNotes[this.quizIndex];
-    };
-    QuizService.prototype.next = function () {
-        // check if quiz has finished
-        if (this.quizIndex == (this.quizLength - 1)) {
-            this.inProgress = false;
-            return false;
-        }
-        // otherwise move on to next quiz note.
-        this.quizIndex++;
-        return true;
-    };
-    QuizService.prototype.recordResult = function (selectedKeyId, actualNote) {
-        // update score
-        if (selectedKeyId == actualNote.keyId) {
-            this.correct++;
-        }
-        else {
-            this.incorrect++;
-        }
-        var result = new __WEBPACK_IMPORTED_MODULE_2__quiz_result__["a" /* QuizResult */]();
-        result.selectedKeyId = selectedKeyId;
-        result.actualNote = actualNote;
-        result.quizNumber = this.quizIndex + 1;
-        this.quizResults.push(result);
-        this.quizResultSource.next(result);
-    };
-    QuizService = __decorate([
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["R" /* Injectable */])(), 
-        __metadata('design:paramtypes', [])
-    ], QuizService);
-    return QuizService;
-}());
-//# sourceMappingURL=C:/Projects/PianoPlay/src/quiz.service.js.map
-
-/***/ }
-
-},[645]);
-//# sourceMappingURL=main.bundle.map
+},[0]);
+//# sourceMappingURL=main.bundle.js.map
