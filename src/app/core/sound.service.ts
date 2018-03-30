@@ -44,9 +44,9 @@ export class SoundService {
   }
 
 
-  private loadSounds() : void {
+  private loadSounds(): void {
     // load the wav files for each piano key.
-    for (let i=16;i<65;i++) {
+    for (let i = 39; i < 52; i++) {
         var soundPath = `./assets/sounds/${i}.wav`;
         this.loadBuffer(i.toString(), soundPath);
     }
