@@ -558,7 +558,7 @@ var SoundService = (function () {
     };
     SoundService.prototype.loadSounds = function () {
         // load the wav files for each piano key.
-        for (var i = 16; i < 65; i++) {
+        for (var i = 39; i < 52; i++) {
             var soundPath = "./assets/sounds/" + i + ".wav";
             this.loadBuffer(i.toString(), soundPath);
         }
